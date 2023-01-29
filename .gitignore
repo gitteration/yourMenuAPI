@@ -18,6 +18,7 @@ node_modules/
 # bundle
 packages/**/*.d.ts
 packages/**/*.js
+dist/
 
 # misc
 .DS_Store
@@ -42,4 +43,5 @@ yarn-error.log
 /packages/graphql
 build/config\.gypi
 
-dist
+# config
+.env*
