@@ -4,6 +4,7 @@ import { MenuModule } from './menu/menu.module';
 import { RestaurantModule } from './restaurant/restaurant.module';
 import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from './database/database.module';
+import { CommonModule } from './common/common.module';
 
 @Module({
     imports: [
@@ -19,6 +20,7 @@ import { DatabaseModule } from './database/database.module';
         MenuModule,
         RestaurantModule,
         DatabaseModule,
+        CommonModule,
     ],
   controllers: [],
   providers: [],
