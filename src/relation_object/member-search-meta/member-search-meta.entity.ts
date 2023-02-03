@@ -11,17 +11,17 @@ export class MemberSearchMeta extends BaseEntity{
         nullable:false
     })
     @JoinColumn()
-    member_id: number;
+    member_id: Member;
 
     @OneToOne(() => Restaurant,{
         nullable:false
     })
     @JoinColumn()
-    restaurant_id: number;
+    restaurant_id: Restaurant;
 
     @OneToOne(() => Menu, {
         nullable:false
     })
     @JoinColumn()
-    menu_id: number;
+    menu_id: Menu;
 }
