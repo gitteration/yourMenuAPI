@@ -1,6 +1,5 @@
-import {Entity, Column, VersionColumn, OneToMany} from 'typeorm';
+import {Entity, Column, VersionColumn} from 'typeorm';
 import {BaseEntity} from "../entities/base-entity";
-import {RestaurantCategory} from "../restaurant_category/restaurant_category.entity";
 
 @Entity()
 export class Restaurant extends BaseEntity{
@@ -81,8 +80,5 @@ export class Restaurant extends BaseEntity{
     })    // 숫자 자동증가 어노테이션
     selected_number: number;
 
-    @OneToMany(() => RestaurantCategory, (restaurantCategory) => restaurantCategory.id,{
-        nullable:false
-    })
-    restaurantCategories: RestaurantCategory[];
+
 }

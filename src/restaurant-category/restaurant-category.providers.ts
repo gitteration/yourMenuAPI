@@ -1,5 +1,5 @@
 import { DataSource } from 'typeorm';
-import { RestaurantCategory } from './restaurant_category.entity';
+import { RestaurantCategory } from './restaurant-category.entity';
 
 export const restaurantCategoryProviders = [
     {

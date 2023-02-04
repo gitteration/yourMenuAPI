@@ -4,7 +4,7 @@ import { MenuModule } from './menu/menu.module';
 import { RestaurantModule } from './restaurant/restaurant.module';
 import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from './database/database.module';
-import { RestaurantCategoryModule } from './restaurant_category/restaurant_category.module';
+import { RestaurantCategoryModule } from './restaurant-category/restaurant-category.module';
 import {AppController} from "./app.controller";
 import {AppService} from "./app.service";
 
