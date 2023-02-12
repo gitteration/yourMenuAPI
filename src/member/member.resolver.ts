@@ -1,19 +1,28 @@
-import { Query, Resolver } from "@nestjs/graphql";
+import {Args, Mutation, Query, Resolver} from "@nestjs/graphql";
 import { Member } from "./member.entity";
 import { MemberService } from "./member.service";
+import {CreateMemberDTO} from "./dto/createMemberDTO";
+import {Logger} from "@nestjs/common";
 
-@Resolver(() => Member)
+@Resolver('Member')
 export class MemberResolver {
-    constructor(private readonly memberService: MemberService) {}
+    constructor(
+        private readonly logger:Logger,
+        private readonly memberService: MemberService
+    ) {}
 
-    @Query(() => [Member], { name: 'members' })
-    async getAllMember() {
-        return await this.memberService.findAll();
+    @Query(() => [Member], {
+        name: 'getAllMember'
+    })
+    async getAll() {
+        return await this.memberService.getAll();
     }
 
-    // @Mutation(() => Member)
-    // async createMovie(@Args('title') title: string) {
-    //     return await this.memberService.create();
-    // }
+    @Mutation(() => Member,{
+        name: 'createMember'
+    })
+    async create(@Args('input') createMember:CreateMemberDTO) {
+        return await this.memberService.create(createMember);
+    }
 
 }

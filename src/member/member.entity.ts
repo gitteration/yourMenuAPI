@@ -3,7 +3,7 @@ import {BaseEntity} from "../entities/base-entity";
 import {Field, Float, Int, ObjectType} from "@nestjs/graphql";
 
 
-enum WEATHER {
+export enum WEATHER {
     HOT = 'hot',        // 더운 날
     COLD = 'cold',      // 추운 날
     SUNNY = 'sunny',    // 화창한 날
@@ -13,7 +13,7 @@ enum WEATHER {
     RAINY = 'rainy',    // 비오는 날
     THUNDER = 'thunder' // 번개치는 날
 }
-enum GENDER {
+export enum GENDER {
     M = 'M',    // 남자
     W = 'W',    // 여자
     N = 'N'     // 남자도 여자도 아닌 충성충성!
@@ -21,10 +21,10 @@ enum GENDER {
 @ObjectType()
 @Entity()
 export class Member extends BaseEntity{
-    @Field(() => String, {
+    @Field(type => String, {
         nullable: false,
         description: '날씨',
-        defaultValue: 'sunny'
+        defaultValue: 'SUNNY'
     })
     @Column({
         type: 'varchar',
@@ -56,13 +56,13 @@ export class Member extends BaseEntity{
     })
     @Column({
         type: 'char',
-        length: 50,
+        length: 1,
         comment: '성별(W,M,N)',
         nullable: false,
     })
     gender: GENDER;
 
-    @Field(() => Int,{
+    @Field(() => String,{
         nullable: false,
         description: '핸드폰 번호( "-" 생략)',
         defaultValue: '01012345678'
@@ -73,6 +73,6 @@ export class Member extends BaseEntity{
         comment: '핸드폰 번호( "-" 생략)',
         nullable: false,
     })
-    phone_number: number;
+    phone_number: string;
 
 }
