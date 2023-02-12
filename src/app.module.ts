@@ -10,6 +10,7 @@ import { AppService } from "./app.service";
 import { GraphQLModule } from "@nestjs/graphql";
 import {ApolloDriver, ApolloDriverConfig} from "@nestjs/apollo";
 
+const env = process.env;
 @Module({
     imports: [
         ConfigModule.forRoot({
@@ -25,7 +26,7 @@ import {ApolloDriver, ApolloDriverConfig} from "@nestjs/apollo";
             autoSchemaFile: true,
             debug: true,
             playground: true,
-            path: '/graphql-documents',
+            path: env.GRAPHQL_ENDPOINT
         }),
         MemberModule,
         MenuModule,
