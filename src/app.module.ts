@@ -5,8 +5,10 @@ import { RestaurantModule } from './restaurant/restaurant.module';
 import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from './database/database.module';
 import { RestaurantCategoryModule } from './restaurant-category/restaurant-category.module';
-import {AppController} from "./app.controller";
-import {AppService} from "./app.service";
+import { AppController } from "./app.controller";
+import { AppService } from "./app.service";
+import { GraphQLModule } from "@nestjs/graphql";
+import {ApolloDriver, ApolloDriverConfig} from "@nestjs/apollo";
 
 @Module({
     imports: [
@@ -17,6 +19,13 @@ import {AppService} from "./app.service";
             *  로컬에서는 .env.dev.local 파일로 작업, 개발서버에서는 .env.dev 파일로 작업, 운영서버에서는 .env.prod 파일로 작업
             */
             envFilePath: ['.env.local', '.env.dev', '.env.prod'],
+        }),
+        GraphQLModule.forRoot<ApolloDriverConfig>({
+            driver: ApolloDriver,
+            autoSchemaFile: true,
+            debug: true,
+            playground: true,
+            path: '/graphql-documents',
         }),
         MemberModule,
         MenuModule,

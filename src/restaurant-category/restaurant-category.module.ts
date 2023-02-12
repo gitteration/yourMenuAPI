@@ -3,6 +3,7 @@ import { RestaurantCategoryService } from './restaurant-category.service';
 import { RestaurantCategoryController } from './restaurant-category.controller';
 import {restaurantCategoryProviders} from "./restaurant-category.providers";
 import {DatabaseModule} from "../database/database.module";
+import { RestaurantCategoryResolver } from './restaurant-category.resolver';
 
 @Module({
       imports:[
@@ -11,6 +12,7 @@ import {DatabaseModule} from "../database/database.module";
       providers: [
           ...restaurantCategoryProviders,
           RestaurantCategoryService,
+          RestaurantCategoryResolver,
       ],
       controllers: [RestaurantCategoryController]
 })

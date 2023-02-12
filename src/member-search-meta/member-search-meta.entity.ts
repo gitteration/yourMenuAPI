@@ -1,8 +1,7 @@
 import {Entity, JoinColumn, OneToOne} from 'typeorm';
-import {Member} from "../../member/member.entity";
-import {Restaurant} from "../../restaurant/restaurant.entity";
-import {Menu} from "../../menu/menu.entity";
-import {BaseEntity} from "../../entities/base-entity";
+import {Member} from "../member/member.entity";
+import {Restaurant} from "../restaurant/restaurant.entity";
+import {BaseEntity} from "../entities/base-entity";
 
 @Entity()
 export class MemberSearchMeta extends BaseEntity{
@@ -19,9 +18,4 @@ export class MemberSearchMeta extends BaseEntity{
     @JoinColumn()
     restaurant_id: Restaurant;
 
-    @OneToOne(() => Menu, {
-        nullable:false
-    })
-    @JoinColumn()
-    menu_id: Menu;
 }

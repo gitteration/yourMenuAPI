@@ -1,5 +1,7 @@
 import {Entity, Column} from 'typeorm';
 import {BaseEntity} from "../entities/base-entity";
+import {ManyToOne} from "typeorm";
+import {Restaurant} from "../restaurant/restaurant.entity";
 
 @Entity()
 export class RestaurantCategory extends BaseEntity{
@@ -12,7 +14,8 @@ export class RestaurantCategory extends BaseEntity{
     })
     name: string;
 
-
+    @ManyToOne(() => Restaurant, (restaurant) => restaurant.restaurantCategories)
+    restaurant: Restaurant;
 
 
 }

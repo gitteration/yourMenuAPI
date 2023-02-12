@@ -1,5 +1,7 @@
 import { Entity, Column } from 'typeorm';
 import {BaseEntity} from "../entities/base-entity";
+import {Restaurant} from "../restaurant/restaurant.entity";
+import {ManyToOne} from "typeorm";
 
 @Entity()
 export class Menu extends BaseEntity{
@@ -27,4 +29,6 @@ export class Menu extends BaseEntity{
     })
     price: number;
 
+    @ManyToOne(() => Restaurant, (restaurant) => restaurant.menu)
+    restaurant: Restaurant[];
 }
