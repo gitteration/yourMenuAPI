@@ -7,7 +7,7 @@ import {ArgsType, Field, InputType} from "@nestjs/graphql";
     description:'맴버 생성 DTO'
 })
 export class CreateMemberDTO {
-    @Field({ nullable: true })
+    @Field({ nullable: true , description:'test'})
     @Length(1,20,{
         message: 'Weather is not validate length(1-20)'
     })
