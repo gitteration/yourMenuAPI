@@ -1,8 +1,10 @@
-import {Args, Mutation, Query, Resolver} from "@nestjs/graphql";
+import {Args, Int, Mutation, Query, Resolver} from "@nestjs/graphql";
 import { Member } from "./member.entity";
 import { MemberService } from "./member.service";
-import {CreateMemberDto} from "./member.dto";
+import {CreateMemberDto, UpdateMemberDto} from "./member.dto";
 import {Logger} from "@nestjs/common";
+import {DeleteResult, UpdateResult} from "typeorm";
+import {DeleteEntity} from "../entities/delete-entity";
 
 @Resolver('Member')
 export class MemberResolver {
@@ -11,14 +13,31 @@ export class MemberResolver {
         private readonly memberService: MemberService
     ) {}
 
+    @Query(() => Member, {name: 'getMemberById'})
+    async getMemberById(@Args('id', {type:()=>Int}) id:number) {
+        return await this.memberService.findMemberById(id);
+    }
+
     @Query(() => [Member], {name: 'getAllMember'})
-    async getAll() {
-        return await this.memberService.getAll();
+    async getAllMember() {
+        return await this.memberService.findAllMember();
     }
 
     @Mutation(() => Member,{name: 'createMember'})
-    async create(@Args('input') createMemberDTO:CreateMemberDto):Promise<Member> {
-        return await this.memberService.create(createMemberDTO);
+    async createMember(@Args('input') createMemberDTO:CreateMemberDto):Promise<Member> {
+        return await this.memberService.createMember(createMemberDTO);
     }
 
+    @Mutation(() => Member,{name: 'updateMember'})
+    async updateMember(
+        @Args('id', {type:()=>Int}) id:number,
+        @Args('input') updateMemberDTO:UpdateMemberDto
+    ):Promise<UpdateResult> {
+        return await this.memberService.updateMember(id, updateMemberDTO);
+    }
+
+    @Mutation(() => DeleteEntity, {name: 'deleteMember'})
+    async deleteMember(@Args('id', {type:()=>Int}) id:number,):Promise<DeleteResult> {
+        return await this.memberService.deleteMember(id);
+    }
 }

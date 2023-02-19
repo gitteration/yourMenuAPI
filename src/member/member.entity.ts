@@ -1,7 +1,7 @@
 import {Entity, Column} from 'typeorm';
 import {BaseEntity} from "../entities/base-entity";
-import {Field, Float, ObjectType} from "@nestjs/graphql";
-import {IsEmpty, Length, ValidateNested} from "class-validator";
+import {ArgsType, Field, Float, InputType, ObjectType} from "@nestjs/graphql";
+import {IsEmpty, IsNotEmpty, Length, ValidateNested} from "class-validator";
 
 
 export enum WEATHER {
@@ -23,21 +23,22 @@ export enum GENDER {
 @ObjectType()
 @Entity()
 export class Member extends BaseEntity{
-    @Field(() => String, {
-        nullable: false,
-        description: '날씨',
-        defaultValue: WEATHER.FOGGY
-    })
+
     @Column({
         type: 'varchar',
         length: 20,
         comment: `날씨`,
         nullable: false,
     })
+    @Field(() => String, {
+        nullable: false,
+        description: '날씨',
+        defaultValue: WEATHER.FOGGY
+    })
     @Length(1,20,{
         message: 'Weather is not validate length(1-20)'
     })
-    @IsEmpty({
+    @IsNotEmpty({
         message: 'Weather is not empty'
     })
     @ValidateNested({

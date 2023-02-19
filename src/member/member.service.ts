@@ -1,7 +1,7 @@
 import {Inject, Injectable} from '@nestjs/common';
-import {Repository} from "typeorm";
+import {DeleteResult, Repository, UpdateResult} from "typeorm";
 import {Member} from "./member.entity";
-import {CreateMemberDto} from "./member.dto";
+import {CreateMemberDto, UpdateMemberDto} from "./member.dto";
 
 @Injectable()
 export class MemberService {
@@ -10,13 +10,33 @@ export class MemberService {
         private memberRepository: Repository<Member>
     ) {
     }
-    async getAll():Promise<Member[]>{
+    async findMemberById(id):Promise<Member>{
+        return await this.memberRepository.findOne({
+            where:{
+                id: id
+            }
+        });
+    }
+
+    async findAllMember():Promise<Member[]>{
         return await this.memberRepository.find();
     }
 
-    async create(createMember:CreateMemberDto):Promise<Member>{
+    async createMember(createMember:CreateMemberDto):Promise<Member>{
         return await this.memberRepository.save(createMember);
     }
 
+    async updateMember(id:number,updateMemberDto:UpdateMemberDto):Promise<UpdateResult>{
+        return await this.memberRepository.update(id,{
+            weather:updateMemberDto.weather,
+            feeling:updateMemberDto.feeling,
+            gender:updateMemberDto.gender,
+            phone_number:updateMemberDto.phone_number
+        });
+    }
+
+    async deleteMember(id:number):Promise<DeleteResult>{
+        return await this.memberRepository.delete(id);
+    }
 
 }
