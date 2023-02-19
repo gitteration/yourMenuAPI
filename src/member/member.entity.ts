@@ -1,6 +1,7 @@
-import { Entity, Column } from 'typeorm';
+import {Entity, Column} from 'typeorm';
 import {BaseEntity} from "../entities/base-entity";
-import {Field, Float, Int, ObjectType} from "@nestjs/graphql";
+import {Field, Float, ObjectType} from "@nestjs/graphql";
+import {IsEmpty, Length, ValidateNested} from "class-validator";
 
 
 export enum WEATHER {
@@ -18,19 +19,29 @@ export enum GENDER {
     W = 'W',    // 여자
     N = 'N'     // 남자도 여자도 아닌 충성충성!
 }
+
 @ObjectType()
 @Entity()
 export class Member extends BaseEntity{
-    @Field(type => String, {
+    @Field(() => String, {
         nullable: false,
         description: '날씨',
-        defaultValue: 'SUNNY'
+        defaultValue: WEATHER.FOGGY
     })
     @Column({
         type: 'varchar',
         length: 20,
         comment: `날씨`,
         nullable: false,
+    })
+    @Length(1,20,{
+        message: 'Weather is not validate length(1-20)'
+    })
+    @IsEmpty({
+        message: 'Weather is not empty'
+    })
+    @ValidateNested({
+        message: `Weather is not validate (${WEATHER})`
     })
     weather: WEATHER;
 
@@ -47,6 +58,12 @@ export class Member extends BaseEntity{
         comment: '감정(숫자로 표현)',
         nullable: false,
     })
+    @Length(1,2,{
+        message: 'feeling is not validate length(0~10)'
+    })
+    @IsEmpty({
+        message: 'feeling is not empty'
+    })
     feeling: number;
 
     @Field(() => String,{
@@ -60,6 +77,15 @@ export class Member extends BaseEntity{
         comment: '성별(W,M,N)',
         nullable: false,
     })
+    @Length(1,1,{
+        message: 'gender is not validate length(1)'
+    })
+    @IsEmpty({
+        message: 'gender is not empty'
+    })
+    @ValidateNested({
+        message: `Gender is not validate (${GENDER})`
+    })
     gender: GENDER;
 
     @Field(() => String,{
@@ -72,6 +98,12 @@ export class Member extends BaseEntity{
         length: 20,
         comment: '핸드폰 번호( "-" 생략)',
         nullable: false,
+    })
+    @Length(1,20,{
+        message: 'phone_number is not validate length(1-20)'
+    })
+    @IsEmpty({
+        message: 'phone_number is not empty'
     })
     phone_number: string;
 

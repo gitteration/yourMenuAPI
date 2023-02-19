@@ -1,20 +1,17 @@
 import {CreateDateColumn, Entity, Index, PrimaryGeneratedColumn, UpdateDateColumn} from "typeorm";
-import {Field, ID, Int, ObjectType} from "@nestjs/graphql";
+import {Field, ObjectType} from "@nestjs/graphql";
 
 @ObjectType()
 @Entity()
 export class BaseEntity{
-    @Field(type => ID, {
-        nullable: false,
-        description: 'pk',
-    })
+
     @PrimaryGeneratedColumn({
         type:'bigint',
         comment:'pk_auto',
     })
     id: number;
 
-    @Field(type => Date, {
+    @Field(() => Date, {
         nullable: false,
         description: '생성일',
     })
@@ -25,7 +22,7 @@ export class BaseEntity{
     })
     createdDate: Date;
 
-    @Field(type => Date, {
+    @Field(() => Date, {
         nullable: false,
         description: '수정일',
     })

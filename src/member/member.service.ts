@@ -1,7 +1,7 @@
 import {Inject, Injectable} from '@nestjs/common';
 import {Repository} from "typeorm";
 import {Member} from "./member.entity";
-import {CreateMemberDTO} from "./dto/createMemberDTO";
+import {CreateMemberDto} from "./member.dto";
 
 @Injectable()
 export class MemberService {
@@ -14,7 +14,7 @@ export class MemberService {
         return await this.memberRepository.find();
     }
 
-    async create(createMember:CreateMemberDTO):Promise<Member>{
+    async create(createMember:CreateMemberDto):Promise<Member>{
         return await this.memberRepository.save(createMember);
     }
 
