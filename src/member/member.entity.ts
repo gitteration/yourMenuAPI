@@ -27,7 +27,7 @@ export class Member extends BaseEntity{
     @Column({
         type: 'varchar',
         length: 20,
-        comment: `날씨`,
+        comment: `날씨2`,
         nullable: false,
     })
     @Field(() => String, {
