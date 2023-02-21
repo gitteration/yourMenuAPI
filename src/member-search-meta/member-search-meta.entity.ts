@@ -16,7 +16,7 @@ export class MemberSearchMeta extends BaseEntity{
         nullable:false
     })
     @JoinColumn()
-    member_id: Member;
+    member: Member;
 
     @Field(() => Restaurant,{
         nullable: false,
@@ -27,6 +27,6 @@ export class MemberSearchMeta extends BaseEntity{
         nullable:false
     })
     @JoinColumn()
-    restaurant_id: Restaurant;
+    restaurant: Restaurant;
 
 }
