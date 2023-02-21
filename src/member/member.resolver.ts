@@ -15,17 +15,17 @@ export class MemberResolver {
 
     @Query(() => Member, {name: 'getMemberById'})
     async getMemberById(@Args('id', {type:()=>Int}) id:number) {
-        return await this.memberService.findMemberById(id);
+        return await this.memberService.getById(id);
     }
 
     @Query(() => [Member], {name: 'getAllMember'})
     async getAllMember() {
-        return await this.memberService.findAllMember();
+        return await this.memberService.getAll();
     }
 
     @Mutation(() => Member,{name: 'createMember'})
     async createMember(@Args('input') createMemberDTO:CreateMemberDto):Promise<Member> {
-        return await this.memberService.createMember(createMemberDTO);
+        return await this.memberService.createOne(createMemberDTO);
     }
 
     @Mutation(() => Member,{name: 'updateMember'})
@@ -33,11 +33,11 @@ export class MemberResolver {
         @Args('id', {type:()=>Int}) id:number,
         @Args('input') updateMemberDTO:UpdateMemberDto
     ):Promise<UpdateResult> {
-        return await this.memberService.updateMember(id, updateMemberDTO);
+        return await this.memberService.updateMany(id, updateMemberDTO);
     }
 
     @Mutation(() => DeleteEntity, {name: 'deleteMember'})
     async deleteMember(@Args('id', {type:()=>Int}) id:number,):Promise<DeleteResult> {
-        return await this.memberService.deleteMember(id);
+        return await this.memberService.delete(id);
     }
 }

@@ -2,29 +2,37 @@ import {Inject, Injectable} from '@nestjs/common';
 import {DeleteResult, Repository, UpdateResult} from "typeorm";
 import {Member} from "./member.entity";
 import {CreateMemberDto, UpdateMemberDto} from "./member.dto";
-import {MemberRepository} from "./member.repository";
 
 @Injectable()
-export class MemberService {
+export class MemberRepository {
     constructor(
         @Inject('MEMBER_REPOSITORY')
-        private memberRepository: MemberRepository
+        private memberRepository: Repository<Member>
     ) {
     }
     async getById(id):Promise<Member>{
-        return await this.memberRepository.getById(id)
+        return await this.memberRepository.findOne({
+            where:{
+                id: id
+            }
+        });
     }
 
     async getAll():Promise<Member[]>{
-        return await this.memberRepository.getAll();
+        return await this.memberRepository.find();
     }
 
     async createOne(createMember:CreateMemberDto):Promise<Member>{
-        return await this.memberRepository.createOne(createMember);
+        return await this.memberRepository.save(createMember);
     }
 
     async updateMany(id:number,updateMemberDto:UpdateMemberDto):Promise<UpdateResult>{
-        return await this.memberRepository.updateMany(id,updateMemberDto);
+        return await this.memberRepository.update(id,{
+            weather:updateMemberDto.weather,
+            feeling:updateMemberDto.feeling,
+            gender:updateMemberDto.gender,
+            phone_number:updateMemberDto.phone_number
+        });
     }
 
     async delete(id:number):Promise<DeleteResult>{

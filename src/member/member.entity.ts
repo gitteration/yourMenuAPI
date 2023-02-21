@@ -1,6 +1,6 @@
 import {Entity, Column} from 'typeorm';
 import {BaseEntity} from "../entities/base-entity";
-import {ArgsType, Field, Float, InputType, ObjectType} from "@nestjs/graphql";
+import {Field, Float, ObjectType} from "@nestjs/graphql";
 import {IsEmpty, IsNotEmpty, Length, ValidateNested} from "class-validator";
 
 
@@ -27,7 +27,7 @@ export class Member extends BaseEntity{
     @Column({
         type: 'varchar',
         length: 20,
-        comment: `날씨2`,
+        comment: `날씨`,
         nullable: false,
     })
     @Field(() => String, {
