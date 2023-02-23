@@ -2,14 +2,12 @@ import {Args, Int, Mutation, Query, Resolver} from "@nestjs/graphql";
 import { Member } from "./member.entity";
 import { MemberService } from "./member.service";
 import {CreateMemberDto, UpdateMemberDto} from "./member.dto";
-import {Logger} from "@nestjs/common";
 import {DeleteResult, UpdateResult} from "typeorm";
 import {DeleteEntity} from "../entities/delete-entity";
 
 @Resolver('Member')
 export class MemberResolver {
     constructor(
-        private readonly logger:Logger,
         private readonly memberService: MemberService
     ) {}
 

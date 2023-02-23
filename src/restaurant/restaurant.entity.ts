@@ -33,7 +33,8 @@ export class Restaurant extends BaseEntity{
     @Column({
         type: 'smallint',
         comment: '핸드폰 번호("-" 제외)',
-        nullable: false
+        nullable: false,
+        unique: true
     })
     phone_number: number;
 

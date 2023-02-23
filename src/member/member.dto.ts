@@ -7,7 +7,7 @@ import {InputType, OmitType} from "@nestjs/graphql";
 
 export class CreateMemberDto extends OmitType(
     Member,
-    ['createdDate','updateDate'],
+    ['id','createdDate','updateDate'],
     InputType
 ){}
 
